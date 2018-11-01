@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Database1101</string>
+    <string name="insertrecord">INSERT RECORD</string>
+    <string name="readdata">READ DATA</string>
+    <string name="updaterecord">UPDATE RECORD</string>
+    <string name="deleterecord">DELETE RECORD</string>
+</resources>
