@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tvResult.setText(str);
                 break;
             case R.id.buttonDelete:
-                mdb.execSQL("DELETE FROM awe_country WHERE country = 'France'");
+                mdb.execSQL("DELETE FROM awe_country WHERE country = '"+country+"';");
 
                 break;
             case R.id.buttonUpdate:
-                mdb.execSQL("UPDATE awe_country SET capital = 'Tokyo' WHERE country= 'Japan'");
+                mdb.execSQL("UPDATE awe_country SET capital = '"+city+"' WHERE country= '"+country+"';");
 
                 break;
         }
