@@ -4,4 +4,6 @@
     <string name="readdata">READ DATA</string>
     <string name="updaterecord">UPDATE RECORD</string>
     <string name="deleterecord">DELETE RECORD</string>
+    <string name="addvisited">ADD VISITED</string>
+    <string name="search">SEARCH</string>
 </resources>

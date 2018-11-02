@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     MyDBOpenHelper dbHelper;
@@ -22,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbHelper = new MyDBOpenHelper(this,"awe.db",null,1);
+        dbHelper = new MyDBOpenHelper(this,"awe.db",null,3);
         mdb =dbHelper.getWritableDatabase();
         Button buttonInsert = findViewById(R.id.buttonInsert);
         buttonInsert.setOnClickListener(this);
@@ -32,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonUpdate.setOnClickListener(this);
         Button buttonDelete = findViewById(R.id.buttonDelete);
         buttonDelete.setOnClickListener(this);
+        Button buttonSearch = findViewById(R.id.buttonSearch);
+        buttonSearch.setOnClickListener(this);
+        Button buttonAddVisited = findViewById(R.id.buttonAddVisited);
+        buttonAddVisited.setOnClickListener(this);
     }
 
     @Override
@@ -40,21 +48,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EditText cityEditText = (EditText)findViewById(R.id.editTextCity);
         String country = countryEditText.getText().toString();
         String city = cityEditText.getText().toString();
+        TextView textViewPkId = findViewById(R.id.textViewPkId);
+        TextView textViewVisitedTotalCount = findViewById(R.id.textViewVisitedTotalCount);
+        String strPkID;
+        String query1, query2;
+//        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+//        55행은 지선쌤 코드
+//        57-58행은 민경쌤 코드 pkid String으로 받아오는 것.
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        String datetime = format.format(new Date());
+
 
         switch (v.getId()){
+
+            case R.id.buttonAddVisited:
+                strPkID = textViewPkId.getText().toString();
+                query1 = "INSERT INTO awe_country_visitedcount VALUES('"+strPkID+"')";
+                mdb.execSQL(query1);
+                break;
+
+            case R.id.buttonSearch:
+                country = countryEditText.getText().toString();
+                query2 = "SELECT pkid, country, capital, count(fkid) visitedTotal"+
+                        "FROM awe_country INNER JOIN awe_country_visitedcount"+
+                        "ON pkid = fkid AND pkid ='"+country+"'";
+                Cursor cursor1 = mdb.rawQuery(query2,null);
+                if(cursor1.getCount()>0){
+                    cursor1.moveToFirst();
+
+                    int visitedTotal = cursor1.getInt(cursor1.getColumnIndex("visitedTotal"));
+                    textViewVisitedTotalCount.setText(String.valueOf(visitedTotal));
+
+                }
+                break;
             case R.id.buttonInsert:
-                mdb.execSQL("INSERT INTO awe_country Values(null, '" + country +"','"+city+"');");
+                mdb.execSQL("INSERT INTO awe_country Values( '"+datetime+"', '" + country +"','"+city+"');");
                 break;
             case R.id.buttonRead:
                 TextView tvResult = (TextView)findViewById(R.id.textViewResult);
-                String query = "SELECT * FROM awe_country ORDER BY _id DESC";
+                String query = "SELECT * FROM awe_country";
+//                String query = "SELECT * FROM awe_country ORDER BY _id DESC";
                 Cursor cursor = mdb.rawQuery(query,null);
                 String str ="";
                 while (cursor.moveToNext()){
-                    int id = cursor.getInt(0);
+                    String pkid = cursor.getString(0);
                     country = cursor.getString(cursor.getColumnIndex("country"));
                     city = cursor.getString(cursor.getColumnIndex("capital"));
-                    str+=(id+":"+country+"-"+city+"\n");
+                    str+=(pkid+":"+country+"-"+city+"\n");
                 }
                 tvResult.setText(str);
                 break;
@@ -66,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mdb.execSQL("UPDATE awe_country SET capital = '"+city+"' WHERE country= '"+country+"';");
 
                 break;
+
         }
 
 

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MyDBOpenHelper extends SQLiteOpenHelper {
     private static final String name = "awe.db";
     private static final SQLiteDatabase.CursorFactory factory = null;
-    private static final int version = 1;
+    private static final int version = 3;
 
     public MyDBOpenHelper(Context context) {
         super(context, name, factory, version);
@@ -30,7 +30,14 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE awe_country ;");
-        onCreate(db);
+        db.execSQL("DROP TABLE awe_country_visitedcount;");
+
+        db.execSQL("CREATE TABLE awe_country (pkid TEXT, country TEXT, capital TEXT);");
+        db.execSQL("CREATE TABLE awe_country_visitedcount(fkid TEXT);");
+
+
+
+
 //        Toast.makeText(this.,"onUpgrade", Toast.LENGTH_LONG).show();
     }
 
