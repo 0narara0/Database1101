@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.buttonRead:
                 TextView tvResult = (TextView)findViewById(R.id.textViewResult);
                 String query = "SELECT * FROM awe_country";
-//                String query = "SELECT * FROM awe_country ORDER BY _id DESC";
+//                String query = "SELECT * FROM awe_country ORDER BY _id DESC"; _id 있을 때 내림차순
                 Cursor cursor = mdb.rawQuery(query,null);
                 String str ="";
                 while (cursor.moveToNext()){
