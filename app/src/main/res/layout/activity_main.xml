@@ -84,6 +84,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/addvisited" />
+
+                <Button
+                    android:id="@+id/buttonInit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="INIT" />
             </LinearLayout>
 
             <LinearLayout

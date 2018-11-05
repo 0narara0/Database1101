@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonSearch.setOnClickListener(this);
         Button buttonAddVisited = findViewById(R.id.buttonAddVisited);
         buttonAddVisited.setOnClickListener(this);
+        Button buttonInit = findViewById(R.id.buttonInit);
+        buttonInit.setOnClickListener(this);
     }
 
     @Override
@@ -91,6 +93,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     textViewPkId.setText(pkid);
                 }
                 break;
+
+            case R.id.buttonInit:
+                countryEditText.setText("");
+                cityEditText.setText("");
+                textViewPkId.setText("");
+                textViewVisitedTotalCount.setText("");
 
             case R.id.buttonInsert:
                 mdb.execSQL("INSERT INTO awe_country Values( '"+datetime+"', '" + country +"','"+city+"');");
