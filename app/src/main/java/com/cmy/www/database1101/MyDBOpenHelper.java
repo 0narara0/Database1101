@@ -21,6 +21,7 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE awe_country (_id INTEGER PRIMARY KEY AUTOINCREMENT, country TEXT, capital TEXT);");
+//                                                                     자동 증가
 
         for(int i=0; i<10; i++){
             db.execSQL("INSERT INTO awe_country VALUES( null, '" + "Country"+ i + "', '" + "Capital" + i + "');");
@@ -32,8 +33,8 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE awe_country ;");
         db.execSQL("DROP TABLE awe_country_visitedcount;");
 
-        db.execSQL("CREATE TABLE awe_country (pkid TEXT, country TEXT, capital TEXT);");
-        db.execSQL("CREATE TABLE awe_country_visitedcount(fkid TEXT);");
+        db.execSQL("CREATE TABLE awe_country (pkid TEXT PRIMARY KEY, country TEXT, capital TEXT);");
+        db.execSQL("CREATE TABLE awe_country_visitedcount(fkid TEXT);"); // 1:n관계라서 테입ㄹ을 두개를 만드는 것
 
 
 
