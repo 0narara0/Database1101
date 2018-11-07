@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.buttonInsert:
                 mdb.execSQL("INSERT INTO awe_country Values( '"+datetime+"', '" + country +"','"+city+"');");
-                break;
+            break;
 
             case R.id.buttonRead:
                 TextView tvResult = (TextView)findViewById(R.id.textViewResult);
