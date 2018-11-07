@@ -34,7 +34,7 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE awe_country_visitedcount;");
 
         db.execSQL("CREATE TABLE awe_country (pkid TEXT PRIMARY KEY, country TEXT, capital TEXT);");
-        db.execSQL("CREATE TABLE awe_country_visitedcount(fkid TEXT);"); // 1:n관계라서 테입ㄹ을 두개를 만드는 것
+        db.execSQL("CREATE TABLE awe_country_visitedcount(fkid TEXT);"); // 1:n관계라서 테이블을 두개를 만드는 것
 
 
 
